@@ -31,25 +31,24 @@ def show_pokemon():
         
 
 def add_pokemon():
-    valeur = entry.get()
-    if valeur == "":
+    name_valeur = entry_name.get()
+    if not name_valeur:
         label_info.config(text="Il faut écrire une pokemon !")
         label_capacity.config(text="")
-    else:
-        type_valeur = entry_type.get()
-        capacity_valeur = entry_capacity.get()
+    
+    type_valeur = entry_type.get()
+    capacity_valeur = entry_capacity.get()
 
-        new_pokemon = Pokemon(valeur, type_valeur, capacity_valeur)
+    new_pokemon = Pokemon(name_valeur, type_valeur, capacity_valeur)
+    pokemons.append(new_pokemon)
 
-        list_pokemon.insert(tk.END, new_pokemon.name)
+    label_info.config(text=f"{new_pokemon.name} a été ajouté au pokedex,")
 
-        button.config(text="Ajoute un type")
-        
-        label_info.config(text=f"{new_pokemon.name}, est un pokemon de type {new_pokemon.type}")
+    list_pokemon.insert(tk.END, new_pokemon.name)
 
-        button.config(text="Ajoute les capacités")
-
-        label_capacity.config(text=f"Capacités : {new_pokemon.capacity}")
+    entry_name.delete(0, tk.END)
+    entry_type.delete(0, tk.END)
+    entry_capacity.delete(0, tk.END)
 
 
 list_pokemon = tk.Listbox(fenetre)
@@ -71,8 +70,8 @@ label_capacity.pack()
 label_add_pokemon = tk.Label(fenetre, text="Ajoute un pokemon")
 label_add_pokemon.pack()
 
-entry = tk.Entry(fenetre)
-entry.pack()
+entry_name = tk.Entry(fenetre)
+entry_name.pack()
 
 label_add_type = tk.Label(fenetre, text="Ajoute le type de pokemon")
 label_add_type.pack()
