@@ -1,4 +1,5 @@
 import tkinter as tk
+from PIL import ImageTk, Image
 
 fenetre = tk.Tk()
 fenetre.title("Pokedex")
@@ -19,6 +20,7 @@ pokemons = [
 
 
 def show_pokemon():
+    global image
     selection = list_pokemon.curselection()
     if not selection:
         label_info.config(text="Il faut choisir un Pokemon !")
@@ -28,6 +30,8 @@ def show_pokemon():
     pokemon = pokemons[selection[0]]
     label_info.config(text=f"{pokemon.name} est un Pokémon de type {pokemon.type}.")
     label_capacity.config(text=f"Capacités : {pokemon.capacity}")
+
+    
         
 
 def add_pokemon():
@@ -64,8 +68,13 @@ button.pack()
 label_info = tk.Label(fenetre, text="Pokemon ?")
 label_info.pack()
 
-label_capacity = tk.Label(fenetre, text="")
+label_capacity = tk.Label(fenetre)
 label_capacity.pack()
+
+
+image = ImageTk.PhotoImage(Image.open("img/pikachu.png"))
+label_img = tk.Label(fenetre, image=image)
+label_img.pack()
 
 label_add_pokemon = tk.Label(fenetre, text="Ajoute un pokemon")
 label_add_pokemon.pack()
