@@ -10,26 +10,47 @@ class Pokemon:
         self.type = type
         self.capacity = capacity
 
-pokemon1 = Pokemon("Bulbizarre", "Plante, Poison", "Engrais, Chlorophyle")
-pokemon2 = Pokemon("Salameche", "Feu", "Brasier, Force Soleil")
-pokemon3 = Pokemon("Pikachu", "Electrique", "Statik, Paratonnerre")
+
+pokemons = [
+    Pokemon("Bulbizarre", "Plante, Poison", "Engrais, Chlorophyle"),
+    Pokemon("Salameche", "Feu", "Brasier, Force Soleil"),
+    Pokemon("Pikachu", "Electrique", "Statik, Paratonnerre")
+]
+
 
 def show_pokemon():
     selection = list_pokemon.curselection()
-    if selection:
-        if selection[0] == 0:
-            label_info.config(text=f"{pokemon1.name} est un pokemon de type {pokemon1.type},")
-            label_capacity.config(text=f"Capacités : {pokemon1.capacity}")
-
-        if selection[0] == 1:
-            label_info.config(text=f"{pokemon2.name} est un pokemon de type {pokemon2.type},")
-            label_capacity.config(text=f"Capacités : {pokemon2.capacity}")
-
-        if selection[0] == 2:
-            label_info.config(text=f"{pokemon3.name} est un pokemon de type {pokemon3.type},")
-            label_capacity.config(text=f"Capacités : {pokemon3.capacity}")
-    else:
+    if not selection:
         label_info.config(text="Il faut choisir un Pokemon !")
+        label_capacity.config(text="")
+        return
+    
+    pokemon = pokemons[selection[0]]
+    label_info.config(text=f"{pokemon.name} est un Pokémon de type {pokemon.type}.")
+    label_capacity.config(text=f"Capacités : {pokemon.capacity}")
+        
+
+def add_pokemon():
+    valeur = entry.get()
+    if valeur == "":
+        label_info.config(text="Il faut écrire une pokemon !")
+        label_capacity.config(text="")
+    else:
+        type_valeur = entry_type.get()
+        capacity_valeur = entry_capacity.get()
+
+        new_pokemon = Pokemon(valeur, type_valeur, capacity_valeur)
+
+        list_pokemon.insert(tk.END, new_pokemon.name)
+
+        button.config(text="Ajoute un type")
+        
+        label_info.config(text=f"{new_pokemon.name}, est un pokemon de type {new_pokemon.type}")
+
+        button.config(text="Ajoute les capacités")
+
+        label_capacity.config(text=f"Capacités : {new_pokemon.capacity}")
+
 
 list_pokemon = tk.Listbox(fenetre)
 list_pokemon.pack()
@@ -46,5 +67,26 @@ label_info.pack()
 
 label_capacity = tk.Label(fenetre, text="")
 label_capacity.pack()
+
+label_add_pokemon = tk.Label(fenetre, text="Ajoute un pokemon")
+label_add_pokemon.pack()
+
+entry = tk.Entry(fenetre)
+entry.pack()
+
+label_add_type = tk.Label(fenetre, text="Ajoute le type de pokemon")
+label_add_type.pack()
+
+entry_type = tk.Entry(fenetre)
+entry_type.pack()
+
+label_add_capacity = tk.Label(fenetre, text="Ajoute les capacités")
+label_add_capacity.pack()
+
+entry_capacity = tk.Entry(fenetre)
+entry_capacity.pack()
+
+button = tk.Button(fenetre, text="Validé", command=add_pokemon)
+button.pack()
 
 fenetre.mainloop()
