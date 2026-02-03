@@ -44,9 +44,9 @@ def add_pokemon():
         return
     
     type_valeur = entry_type.get()
-    capacity_valeur = entry_capacity.get() 
+    capacity_valeur = entry_capacity.get()
 
-    new_pokemon = Pokemon(name_valeur, type_valeur, capacity_valeur, image="img/image_no_found.png")
+    new_pokemon = Pokemon(name_valeur, type_valeur, capacity_valeur, image=f"img/{name_valeur.lower()}.png")
     pokemons.append(new_pokemon)
 
     label_info.config(text=f"{new_pokemon.name} a été ajouté au pokedex,")
