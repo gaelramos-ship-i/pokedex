@@ -6,16 +6,17 @@ fenetre.title("Pokedex")
 fenetre.geometry("680x480")
 
 class Pokemon:
-    def __init__(self, name, type, capacity):
+    def __init__(self, name, type, capacity, image):
         self.name = name
         self.type = type
         self.capacity = capacity
+        self.img = image
 
 
 pokemons = [
-    Pokemon("Bulbizarre", "Plante, Poison", "Engrais, Chlorophyle"),
-    Pokemon("Salameche", "Feu", "Brasier, Force Soleil"),
-    Pokemon("Pikachu", "Electrique", "Statik, Paratonnerre")
+    Pokemon("Bulbizarre", "Plante, Poison", "Engrais, Chlorophyle", "img/bulbizarre.png"),
+    Pokemon("Salameche", "Feu", "Brasier, Force Soleil", "img/salameche.png"),
+    Pokemon("Pikachu", "Electrique", "Statik, Paratonnerre", "img/pikachu.png")
 ]
 
 
@@ -31,6 +32,10 @@ def show_pokemon():
     label_info.config(text=f"{pokemon.name} est un Pokémon de type {pokemon.type}.")
     label_capacity.config(text=f"Capacités : {pokemon.capacity}")
 
+    image = ImageTk.PhotoImage(Image.open(pokemon.img).resize((100, 100)))
+    label_img.config(image=image)
+
+
     
         
 
@@ -43,7 +48,7 @@ def add_pokemon():
     type_valeur = entry_type.get()
     capacity_valeur = entry_capacity.get()
 
-    new_pokemon = Pokemon(name_valeur, type_valeur, capacity_valeur)
+    new_pokemon = Pokemon(name_valeur, type_valeur, capacity_valeur, image)
     pokemons.append(new_pokemon)
 
     label_info.config(text=f"{new_pokemon.name} a été ajouté au pokedex,")
@@ -71,9 +76,7 @@ label_info.pack()
 label_capacity = tk.Label(fenetre)
 label_capacity.pack()
 
-
-image = ImageTk.PhotoImage(Image.open("img/pikachu.png"))
-label_img = tk.Label(fenetre, image=image)
+label_img = tk.Label(fenetre)
 label_img.pack()
 
 label_add_pokemon = tk.Label(fenetre, text="Ajoute un pokemon")
