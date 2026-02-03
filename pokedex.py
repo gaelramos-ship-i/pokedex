@@ -32,7 +32,7 @@ def show_pokemon():
     label_info.config(text=f"{pokemon.name} est un Pokémon de type {pokemon.type}.")
     label_capacity.config(text=f"Capacités : {pokemon.capacity}")
 
-    image = ImageTk.PhotoImage(Image.open(pokemon.img).resize((100, 100)))
+    image = ImageTk.PhotoImage(Image.open(pokemon.img).resize((200, 200)))
     label_img.config(image=image) 
 
 
@@ -59,44 +59,53 @@ def add_pokemon():
     entry_type.delete(0, tk.END)
     entry_capacity.delete(0, tk.END)
 
-list_pokemon = tk.Listbox(fenetre)
-list_pokemon.pack()
+# Création d'une listbox pour lister les pokemons
+list_pokemon = tk.Listbox(fenetre, width=50)
+list_pokemon.place(x=50, y=50)
 
 list_pokemon.insert(tk.END, "Bulbizarre")
 list_pokemon.insert(tk.END, "Salameche")
 list_pokemon.insert(tk.END, "Pikachu")
 
+# Création d'un button pour afficher les pokemons
 button = tk.Button(fenetre, text="Affiche le pokemon", command=show_pokemon)
-button.pack()
+button.place(x=50, y=230)
 
+# Label qui indique le nom et le type de pokemon
 label_info = tk.Label(fenetre, text="Pokemon ?")
-label_info.pack()
+label_info.place(x=50, y=270)
 
+# Label qui indique les capacités du pokemon
 label_capacity = tk.Label(fenetre)
-label_capacity.pack()
+label_capacity.place(x=50, y=300)
 
+# Label: support pour afficher l'image
 label_img = tk.Label(fenetre)
-label_img.pack()
+label_img.place(x=400, y=50)
 
+# Label qui informe l'utilisateur sur ce qu'il doit faire
 label_add_pokemon = tk.Label(fenetre, text="Ajoute un pokemon")
-label_add_pokemon.pack()
+label_add_pokemon.place(x=400, y=300)
 
 entry_name = tk.Entry(fenetre)
-entry_name.pack()
+entry_name.place(x=400, y=320)
 
+# Label qui informe l'utilisateur sur ce qu'il doit faire
 label_add_type = tk.Label(fenetre, text="Ajoute le type de pokemon")
-label_add_type.pack()
+label_add_type.place(x=400, y=340)
 
 entry_type = tk.Entry(fenetre)
-entry_type.pack()
+entry_type.place(x=400, y=360)
 
+# Label qui informe l'utilisateur sur ce qu'il doit faire
 label_add_capacity = tk.Label(fenetre, text="Ajoute les capacités")
-label_add_capacity.pack()
+label_add_capacity.place(x=400, y=380)
 
 entry_capacity = tk.Entry(fenetre)
-entry_capacity.pack()
+entry_capacity.place(x=400, y=400)
 
+# Ajouter un pokemon
 button = tk.Button(fenetre, text="Validé", command=add_pokemon)
-button.pack()
+button.place(x=400, y=430)
 
 fenetre.mainloop()
