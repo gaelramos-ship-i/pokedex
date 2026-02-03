@@ -37,7 +37,7 @@ def show_pokemon():
 
 
 def add_pokemon():
-    name_valeur = entry_name.get()
+    name_valeur = entry_name.get() 
     if not name_valeur:
         label_info.config(text="Il faut écrire une pokemon !")
         label_capacity.config(text="")
@@ -58,6 +58,9 @@ def add_pokemon():
     entry_name.delete(0, tk.END)
     entry_type.delete(0, tk.END)
     entry_capacity.delete(0, tk.END)
+
+    save_pokemon = open(f"save_pokemon.txt", "a", encoding="UTF-8")
+    save_pokemon.write(f"{new_pokemon.name},{new_pokemon.type},{new_pokemon.capacity},{new_pokemon.img}")
 
 # Création d'une listbox pour lister les pokemons
 list_pokemon = tk.Listbox(fenetre, width=50)
