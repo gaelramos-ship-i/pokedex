@@ -33,17 +33,15 @@ def show_pokemon():
     label_capacity.config(text=f"Capacités : {pokemon.capacity}")
 
     image = ImageTk.PhotoImage(Image.open(pokemon.img).resize((100, 100)))
-    label_img.config(image=image)
-
-
+    label_img.config(image=image) 
     
-        
 
 def add_pokemon():
     name_valeur = entry_name.get()
     if not name_valeur:
         label_info.config(text="Il faut écrire une pokemon !")
         label_capacity.config(text="")
+        return
     
     type_valeur = entry_type.get()
     capacity_valeur = entry_capacity.get()
@@ -52,6 +50,7 @@ def add_pokemon():
     pokemons.append(new_pokemon)
 
     label_info.config(text=f"{new_pokemon.name} a été ajouté au pokedex,")
+    label_capacity.config(text="")
 
     list_pokemon.insert(tk.END, new_pokemon.name)
 
