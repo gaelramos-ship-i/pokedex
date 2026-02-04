@@ -137,3 +137,5 @@ button = tk.Button(fenetre, text="Validé", command=add_pokemon)
 button.place(x=400, y=430)
 
 fenetre.mainloop()
+
+#https://github.com/gaelramos-ship-i/pokedex
