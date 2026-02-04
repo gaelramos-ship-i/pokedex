@@ -14,20 +14,23 @@ class Pokemon:
 
 
 pokemons = [
-    Pokemon("Bulbizarre", "Plante, Poison", "Engrais, Chlorophyle", "img/bulbizarre.png"),
-    Pokemon("Salameche", "Feu", "Brasier, Force Soleil", "img/salameche.png"),
-    Pokemon("Pikachu", "Electrique", "Statik, Paratonnerre", "img/pikachu.png")
+    Pokemon("Bulbizarre", "Plante, Poison", "Engrais / Chlorophyle", "img/bulbizarre.png"),
+    Pokemon("Salameche", "Feu", "Brasier / Force Soleil", "img/salameche.png"),
+    Pokemon("Pikachu", "Electrique", "Statik / Paratonnerre", "img/pikachu.png")
 ]
 
 
 def show_pokemon():
     global image
     selection = list_pokemon.curselection()
+
+    # Si aucun pokemon selectionné
     if not selection:
         label_info.config(text="Il faut choisir un Pokemon !")
         label_capacity.config(text="")
         return
     
+    # Affiche les informations du pokemon selectionné
     pokemon = pokemons[selection[0]]
     label_info.config(text=f"{pokemon.name} est un Pokémon de type {pokemon.type}.")
     label_capacity.config(text=f"Capacités : {pokemon.capacity}")
@@ -37,30 +40,49 @@ def show_pokemon():
 
 
 def add_pokemon():
+    #Recupere le nom entre par l'utilisateur
     name_valeur = entry_name.get() 
+
+    # verifie si le nom est vide
     if not name_valeur:
         label_info.config(text="Il faut écrire une pokemon !")
         label_capacity.config(text="")
         return
     
+    # Recupere type et capacite
     type_valeur = entry_type.get()
     capacity_valeur = entry_capacity.get()
 
+    # Nouveau pokemon 
     new_pokemon = Pokemon(name_valeur, type_valeur, capacity_valeur, image=f"img/{name_valeur.lower()}.png")
     pokemons.append(new_pokemon)
 
+    # infos pour utilisateur
     label_info.config(text=f"{new_pokemon.name} a été ajouté au pokedex,")
     label_capacity.config(text="")
     label_img.config(image="")
 
+    # Ajouter a la liste le nouveau pokemon
     list_pokemon.insert(tk.END, new_pokemon.name)
 
+    # Efface le contenu entry apres utilisation
     entry_name.delete(0, tk.END)
     entry_type.delete(0, tk.END)
     entry_capacity.delete(0, tk.END)
 
+    # Enregister pokemon
     save_pokemon = open(f"save_pokemon.txt", "a", encoding="UTF-8")
-    save_pokemon.write(f"{new_pokemon.name},{new_pokemon.type},{new_pokemon.capacity},{new_pokemon.img}")
+    save_pokemon.write(f"{new_pokemon.name},{new_pokemon.type},{new_pokemon.capacity},{new_pokemon.img} \n")
+    save_pokemon.close
+
+def load_pokemon():
+    with open("save_pokemon.txt", "r", encoding="UTF-8") as file:
+        for line in file:
+            name, type, capacity, img = line.split(",")
+            pokemon = Pokemon(name, type, capacity, img)
+            pokemons.append(pokemon)
+            list_pokemon.insert(tk.END, name)
+                        
 
 # Création d'une listbox pour lister les pokemons
 list_pokemon = tk.Listbox(fenetre, width=50)
@@ -69,6 +91,9 @@ list_pokemon.place(x=50, y=50)
 list_pokemon.insert(tk.END, "Bulbizarre")
 list_pokemon.insert(tk.END, "Salameche")
 list_pokemon.insert(tk.END, "Pikachu")
+
+# Chargement des pokemons enregistrés
+load_pokemon()
 
 # Création d'un button pour afficher les pokemons
 button = tk.Button(fenetre, text="Affiche le pokemon", command=show_pokemon)
