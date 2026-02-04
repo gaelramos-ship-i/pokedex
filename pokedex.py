@@ -73,7 +73,7 @@ def add_pokemon():
     # Enregister pokemon
     save_pokemon = open(f"save_pokemon.txt", "a", encoding="UTF-8")
     save_pokemon.write(f"{new_pokemon.name},{new_pokemon.type},{new_pokemon.capacity},{new_pokemon.img} \n")
-    save_pokemon.close
+    save_pokemon.close()
 
 def load_pokemon():
     with open("save_pokemon.txt", "r", encoding="UTF-8") as file:
@@ -137,5 +137,3 @@ button = tk.Button(fenetre, text="Validé", command=add_pokemon)
 button.place(x=400, y=430)
 
 fenetre.mainloop()
-
-#https://github.com/gaelramos-ship-i/pokedex
